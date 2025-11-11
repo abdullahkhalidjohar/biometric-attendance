@@ -4,116 +4,63 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}شركة التيما للمقاولات{% endblock %}</title>
-
-  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
-
   <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      background-color: #f8f9fa;
-    }
-
-    .navbar {
-      background-color: #003366;
-    }
-
-    .navbar-brand img {
-      height: 45px;
-      margin-left: 10px;
-    }
-
-    footer {
-      background-color: #003366;
-      color: white;
-      padding: 15px 0;
-      margin-top: 40px;
-    }
-
-    .lang-btn {
-      color: #fff;
-      background: transparent;
-      border: 1px solid #fff;
-      border-radius: 5px;
-      padding: 4px 10px;
-      cursor: pointer;
-    }
-
-    .lang-btn:hover {
-      background: #fff;
-      color: #003366;
-    }
+    body { font-family: 'Cairo', sans-serif; background-color: #f8f9fa; }
+    .navbar { background-color: #003366; }
+    .navbar-brand img { height: 45px; margin-left: 10px; }
+    footer { background-color: #003366; color: white; padding: 15px 0; margin-top: 40px; }
+    .lang-btn { color: #fff; background: transparent; border: 1px solid #fff; border-radius: 5px; padding: 4px 10px; cursor: pointer; }
+    .lang-btn:hover { background: #fff; color: #003366; }
   </style>
 </head>
-
 <body>
-
-  <!-- الشريط العلوي -->
   <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
     <div class="container">
       <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
         <img src="https://altema.com.sa/wp-content/uploads/2022/06/logo.png" alt="Altema Logo">
-        <span class="lang" data-ar="التيما للمقاولات" data-en="Altema Contracting"></span>
+        التيما للمقاولات
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link lang" href="/" data-ar="الرئيسية" data-en="Home"></a></li>
-          <li class="nav-item"><a class="nav-link lang" href="/about" data-ar="من نحن" data-en="About"></a></li>
-          <li class="nav-item"><a class="nav-link lang" href="/services" data-ar="خدماتنا" data-en="Services"></a></li>
-          <li class="nav-item"><a class="nav-link lang" href="/login" data-ar="تسجيل الدخول" data-en="Login"></a></li>
+          <li class="nav-item"><a class="nav-link" href="/">الرئيسية</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">من نحن</a></li>
+          <li class="nav-item"><a class="nav-link" href="/services">خدماتنا</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contact">اتصل بنا</a></li>
+          <li class="nav-item"><a class="nav-link" href="/login">تسجيل الدخول</a></li>
         </ul>
         <button id="lang-toggle" class="lang-btn ms-3">EN</button>
       </div>
     </div>
   </nav>
 
-  <!-- محتوى الصفحة -->
   <main class="container mt-5">
     {% block content %}{% endblock %}
   </main>
 
-  <!-- الفوتر -->
   <footer class="text-center">
-    <p class="lang" data-ar="© 2025 شركة التيما للمقاولات - جميع الحقوق محفوظة" data-en="© 2025 Altema Contracting Co. - All Rights Reserved"></p>
+    &copy; 2025 شركة التيما للمقاولات - جميع الحقوق محفوظة
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- تغيير اللغة -->
   <script>
     const langBtn = document.getElementById('lang-toggle');
-    const elements = document.querySelectorAll('.lang');
-
-    function switchLang(to) {
-      elements.forEach(el => {
-        el.textContent = el.getAttribute(`data-${to}`);
-      });
-    }
-
     langBtn.addEventListener('click', () => {
       const currentLang = document.documentElement.lang;
       if (currentLang === 'ar') {
         document.documentElement.lang = 'en';
         document.documentElement.dir = 'ltr';
         langBtn.textContent = 'AR';
-        switchLang('en');
       } else {
         document.documentElement.lang = 'ar';
         document.documentElement.dir = 'rtl';
         langBtn.textContent = 'EN';
-        switchLang('ar');
       }
     });
-
-    // تحميل الصفحة بالعربية افتراضيًا
-    switchLang('ar');
   </script>
-
 </body>
 </html>
