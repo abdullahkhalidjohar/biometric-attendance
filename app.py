@@ -1,39 +1,47 @@
-from flask import Flask, render_template, redirect, url_for, request
+from fastapi import FastAPI, Request, Form
+from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
-app = Flask(__name__)
+app = FastAPI()
+
+# مجلد القوالب
+templates = Jinja2Templates(directory="templates")
+
+# يمكنك لاحقًا إضافة مجلد static للصور و CSS
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # الصفحة الرئيسية
-@app.route('/')
-def home():
-    return render_template('index.html')
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 # صفحة من نحن
-@app.route('/about')
-def about():
-    return render_template('about.html')
+@app.get("/about", response_class=HTMLResponse)
+async def about(request: Request):
+    return templates.TemplateResponse("about.html", {"request": request})
 
 # صفحة الخدمات
-@app.route('/services')
-def services():
-    return render_template('services.html')
+@app.get("/services", response_class=HTMLResponse)
+async def services(request: Request):
+    return templates.TemplateResponse("services.html", {"request": request})
 
 # صفحة تسجيل الدخول
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        # تحقق تجريبي
-        if email == "admin@altema.com" and password == "12345":
-            return redirect(url_for('admin'))
-        else:
-            return render_template('login.html', error="بيانات الدخول غير صحيحة ❌")
-    return render_template('login.html')
+@app.get("/login", response_class=HTMLResponse)
+async def login_get(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
+
+@app.post("/login", response_class=HTMLResponse)
+async def login_post(request: Request, email: str = Form(...), password: str = Form(...)):
+    if email == "admin@altema.com" and password == "12345":
+        return RedirectResponse(url="/admin", status_code=303)
+    else:
+        return templates.TemplateResponse("login.html", {"request": request, "error": "بيانات الدخول غير صحيحة ❌"})
 
 # صفحة الإدارة
-@app.route('/admin')
-def admin():
-    return render_template('admin.html')
+@app.get("/admin", response_class=HTMLResponse)
+async def admin(request: Request):
+    return templates.TemplateResponse("admin.html", {"request": request})
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
+# لتشغيل التطبيق محلياً
+# uvicorn app:app --host 0.0.0.0 --port 10000
