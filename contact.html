@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}اتصل بنا - شركة التيما{% endblock %}
+{% block content %}
+<div class="text-center">
+  <h2 class="lang" data-ar="اتصل بنا" data-en="Contact Us"></h2>
+  <p class="lang" data-ar="نحن هنا لخدمتك! لا تتردد في التواصل معنا عبر النموذج أدناه."
+     data-en="We’re here to help! Feel free to reach out using the form below."></p>
+</div>
+
+<div class="col-md-6 mx-auto mt-4">
+  <form method="post" action="/contact">
+    <div class="mb-3">
+      <label class="form-label lang" data-ar="الاسم الكامل" data-en="Full Name"></label>
+      <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label lang" data-ar="البريد الإلكتروني" data-en="Email"></label>
+      <input type="email" name="email" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label lang" data-ar="الرسالة" data-en="Message"></label>
+      <textarea name="message" class="form-control" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary w-100 lang" data-ar="إرسال" data-en="Send"></button>
+  </form>
+</div>
+{% endblock %}
