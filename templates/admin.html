@@ -1,9 +1,40 @@
-
+<!-- admin.html -->
 {% extends "base.html" %}
-{% block title %}لوحة التحكم{% endblock %}
+
+{% block title %}لوحة الإدارة - Altema{% endblock %}
+
 {% block content %}
-<div class="text-center">
-  <h2 class="lang" data-ar="مرحبًا أيها المدير 👋" data-en="Welcome, Admin 👋"></h2>
-  <p class="lang" data-ar="يمكنك إدارة النظام من هنا." data-en="You can manage the system from here."></p>
-</div>
+<h1>لوحة الإدارة</h1>
+<p>إدارة قائمة الموظفين:</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>الاسم</th>
+      <th>الوظيفة</th>
+      <th>البريد الإلكتروني</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>أحمد العلي</td>
+      <td>مدير المشروع</td>
+      <td>ahmad@altema.com.sa</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>سارة خالد</td>
+      <td>مهندس</td>
+      <td>sara@altema.com.sa</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>محمد عبدالله</td>
+      <td>مسؤول لوجستي</td>
+      <td>mohammad@altema.com.sa</td>
+    </tr>
+  </tbody>
+</table>
 {% endblock %}
