@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 
 app = Flask(__name__)
 
@@ -7,27 +7,27 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-# من نحن
+# صفحة من نحن
 @app.route('/about')
 def about():
     return render_template('about.html')
 
-# الخدمات
+# صفحة الخدمات
 @app.route('/services')
 def services():
     return render_template('services.html')
 
-# تسجيل الدخول
+# صفحة تسجيل الدخول
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-
-        if email == "admin@altema.com.sa" and password == "1234":
+        # تحقق تجريبي
+        if email == "admin@altema.com" and password == "12345":
             return redirect(url_for('admin'))
         else:
-            return render_template('login.html', error="بيانات الدخول غير صحيحة")
+            return render_template('login.html', error="بيانات الدخول غير صحيحة ❌")
     return render_template('login.html')
 
 # صفحة الإدارة
@@ -36,4 +36,4 @@ def admin():
     return render_template('admin.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=10000)
