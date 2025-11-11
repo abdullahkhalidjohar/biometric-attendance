@@ -1,39 +1,21 @@
 {% extends "base.html" %}
-
-{% block title %}تسجيل الدخول - التيما للمقاولات{% endblock %}
-
+{% block title %}تسجيل الدخول{% endblock %}
 {% block content %}
-<div class="row justify-content-center">
-  <div class="col-md-6">
-    <div class="card shadow-lg border-0 rounded-4">
-      <div class="card-body p-5">
-        <h3 class="text-center mb-4 text-primary fw-bold">تسجيل الدخول</h3>
-
-        <form action="/login" method="post">
-          <div class="mb-3">
-            <label for="email" class="form-label">البريد الإلكتروني</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="example@altema.com.sa" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="password" class="form-label">كلمة المرور</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="••••••" required>
-          </div>
-
-          <div class="d-flex justify-content-between align-items-center">
-            <button type="submit" class="btn btn-primary px-4">دخول</button>
-            <a href="#" class="text-decoration-none small text-secondary">نسيت كلمة المرور؟</a>
-          </div>
-        </form>
-
-        <hr class="my-4">
-
-        <div class="text-center">
-          <p class="text-muted mb-2">أو سجّل باستخدام الباركود</p>
-          <button class="btn btn-outline-secondary w-100" id="scanQR">📷 مسح الباركود</button>
-        </div>
-      </div>
+<div class="col-md-4 mx-auto">
+  <h3 class="text-center mb-4 lang" data-ar="تسجيل الدخول" data-en="Login"></h3>
+  {% if error %}
+  <div class="alert alert-danger text-center">{{ error }}</div>
+  {% endif %}
+  <form method="post" action="/login">
+    <div class="mb-3">
+      <label for="email" class="form-label lang" data-ar="البريد الإلكتروني" data-en="Email"></label>
+      <input type="email" name="email" class="form-control" required>
     </div>
-  </div>
+    <div class="mb-3">
+      <label for="password" class="form-label lang" data-ar="كلمة المرور" data-en="Password"></label>
+      <input type="password" name="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100 lang" data-ar="تسجيل الدخول" data-en="Login"></button>
+  </form>
 </div>
 {% endblock %}
