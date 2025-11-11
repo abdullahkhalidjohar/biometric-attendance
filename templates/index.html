@@ -2,52 +2,119 @@
 {% block title %}شركة التيما للمقاولات{% endblock %}
 
 {% block content %}
+<!-- ==== تنسيقات مخصصة ==== -->
 <style>
-    /* تأثير الزوم على النص */
+    /* حركة الزوم */
     .zoom-text {
-        transition: transform 0.6s ease-in-out;
+        transition: transform 0.6s ease, color 0.5s ease;
     }
     .zoom-text:hover {
         transform: scale(1.1);
+        color: #0d6efd;
     }
 
-    /* تأثير التحويل بين النصوص */
+    /* نص متغير */
     .switch-text {
         font-size: 1.4rem;
         font-weight: 500;
-        color: #555;
+        color: #444;
         transition: opacity 0.8s ease-in-out;
     }
+    .fade-out { opacity: 0; }
+    .fade-in { opacity: 1; }
 
-    .fade-out {
+    /* الحركات عند التمرير */
+    .fade-in-section {
         opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.9s ease-out;
+        visibility: hidden;
+    }
+    .fade-in-section.is-visible {
+        opacity: 1;
+        transform: none;
+        visibility: visible;
     }
 
-    .fade-in {
-        opacity: 1;
+    /* كروت الخدمات */
+    .service-card {
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+        border: none;
+    }
+    .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     }
 </style>
 
-<section class="text-center py-5 bg-white shadow-sm rounded-4">
+<!-- ==== القسم الرئيسي ==== -->
+<section class="text-center py-5 bg-white shadow-sm rounded-4 fade-in-section">
     <img src="https://altema.com.sa/wp-content/uploads/2021/04/altema-logo.png" alt="شعار التيما" class="mb-3 zoom-text" width="160">
     <h1 class="fw-bold text-primary zoom-text">شركة التيما للمقاولات</h1>
     <p id="switchingText" class="switch-text mt-3">
-        نحن نبني المستقبل بأعلى معايير الجودة والابتكار في مجال المقاولات.
+        نبني المستقبل بمعايير عالمية من الجودة والابتكار.
     </p>
 
-    <a href="/login" class="btn btn-primary px-4 m-2">تسجيل الدخول</a>
-    <a href="/admin" class="btn btn-outline-primary px-4 m-2">لوحة الإدارة</a>
+    <div class="mt-4">
+        <a href="/login" class="btn btn-primary px-4 m-2 shadow-sm">تسجيل الدخول</a>
+        <a href="/admin" class="btn btn-outline-primary px-4 m-2">لوحة الإدارة</a>
+    </div>
 </section>
 
+<!-- ==== قسم الخدمات ==== -->
+<section class="container mt-5 fade-in-section">
+    <div class="row text-center">
+        <h2 class="fw-bold mb-4 zoom-text">خدماتنا</h2>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 service-card">
+                <img src="https://images.unsplash.com/photo-1581093588401-22dca74b9a63" class="card-img-top" alt="البناء والتشييد">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-primary">البناء والتشييد</h5>
+                    <p class="card-text text-muted">ننفذ مشاريع سكنية وتجارية بأحدث التقنيات لضمان الجودة والدقة.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 service-card">
+                <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be" class="card-img-top" alt="إدارة المشاريع">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-primary">إدارة المشاريع</h5>
+                    <p class="card-text text-muted">نحرص على تسليم المشاريع في الوقت المحدد مع الالتزام بمعايير الجودة.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 service-card">
+                <img src="https://images.unsplash.com/photo-1604014237800-1c2a2e7ad7c8" class="card-img-top" alt="الاستشارات الهندسية">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-primary">الاستشارات الهندسية</h5>
+                    <p class="card-text text-muted">فريقنا يقدم حلول هندسية ذكية تدعم نجاح مشاريعك المستقبلية.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==== قسم التواصل ==== -->
+<section class="container text-center my-5 fade-in-section">
+    <h2 class="fw-bold mb-3 zoom-text">تواصل معنا</h2>
+    <p class="text-muted mb-4">نرحب بتواصلك معنا لأي استفسارات أو تعاون في المشاريع.</p>
+    <a href="mailto:info@altema.com.sa" class="btn btn-success px-4">📩 info@altema.com.sa</a>
+</section>
+
+<!-- ==== سكربت النص المتغير والحركات ==== -->
 <script>
-    // نصوص بالعربية والإنجليزية
+    // النصوص المتغيرة (عربي / إنجليزي)
     const texts = [
-        "نحن نبني المستقبل بأعلى معايير الجودة والابتكار في مجال المقاولات.",
-        "We build the future with the highest standards of quality and innovation in construction.",
+        "نبني المستقبل بمعايير عالمية من الجودة والابتكار.",
+        "We build the future with world-class standards of quality and innovation.",
         "شركة التيما شريكك الموثوق في تنفيذ المشاريع الكبرى.",
-        "Altema Company — Your trusted partner for large-scale projects.",
-        "نلتزم بالتميز والإبداع في كل مشروع.",
-        "Committed to excellence and creativity in every project."
+        "Altema is your trusted partner in major construction projects.",
+        "نلتزم بالتميز في كل مشروع.",
+        "Committed to excellence in every project."
     ];
 
     let index = 0;
@@ -56,7 +123,6 @@
     function switchText() {
         textElement.classList.remove("fade-in");
         textElement.classList.add("fade-out");
-
         setTimeout(() => {
             index = (index + 1) % texts.length;
             textElement.textContent = texts[index];
@@ -64,43 +130,16 @@
             textElement.classList.add("fade-in");
         }, 800);
     }
+    setInterval(switchText, 4000);
 
-    setInterval(switchText, 4000); // تغيير كل 4 ثوانٍ
+    // حركة دخول عند التمرير
+    const sections = document.querySelectorAll(".fade-in-section");
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add("is-visible");
+        });
+    }, { threshold: 0.2 });
+
+    sections.forEach(section => observer.observe(section));
 </script>
-
-<section class="container mt-5">
-    <div class="row text-center">
-        <h2 class="fw-bold mb-4 zoom-text">خدماتنا</h2>
-
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm border-0 zoom-text">
-                <img src="https://images.unsplash.com/photo-1581093588401-22dca74b9a63" class="card-img-top" alt="البناء والتشييد">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">البناء والتشييد</h5>
-                    <p class="card-text text-muted">ننفذ مشاريع بناء سكنية وتجارية بأحدث تقنيات البناء وجودة عالية.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm border-0 zoom-text">
-                <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be" class="card-img-top" alt="إدارة المشاريع">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">إدارة المشاريع</h5>
-                    <p class="card-text text-muted">ندير مشاريعنا باحترافية لضمان الإنجاز في الوقت المحدد وبأعلى جودة.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm border-0 zoom-text">
-                <img src="https://images.unsplash.com/photo-1604014237800-1c2a2e7ad7c8" class="card-img-top" alt="الاستشارات الهندسية">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">الاستشارات الهندسية</h5>
-                    <p class="card-text text-muted">فريقنا يقدم الحلول الهندسية المتكاملة والدعم الفني المتواصل.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 {% endblock %}
