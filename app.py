@@ -1,42 +1,39 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
-import os
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
-app.secret_key = "supersecretkey"  # لتشفير الجلسات
 
 # الصفحة الرئيسية
-@app.route("/")
-def index():
-    return render_template("index.html")
+@app.route('/')
+def home():
+    return render_template('index.html')
 
-# صفحة تسجيل الدخول
-@app.route("/login", methods=["GET", "POST"])
+# من نحن
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+# الخدمات
+@app.route('/services')
+def services():
+    return render_template('services.html')
+
+# تسجيل الدخول
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == "POST":
-        email = request.form["email"]
-        password = request.form["password"]
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
 
-        # تحقق بسيط مؤقت (يمكن تطويره لاحقاً مع قاعدة بيانات)
-        if email == "admin@altema.com.sa" and password == "123456":
-            flash("تم تسجيل الدخول بنجاح ✅", "success")
-            return redirect(url_for("index"))
+        if email == "admin@altema.com.sa" and password == "1234":
+            return redirect(url_for('admin'))
         else:
-            flash("البريد أو كلمة المرور غير صحيحة ❌", "danger")
+            return render_template('login.html', error="بيانات الدخول غير صحيحة")
+    return render_template('login.html')
 
-    return render_template("login.html")
+# صفحة الإدارة
+@app.route('/admin')
+def admin():
+    return render_template('admin.html')
 
-# API لتسجيل الدخول عبر الباركود
-@app.route("/api/login/barcode", methods=["POST"])
-def login_barcode():
-    data = request.get_json()
-    barcode = data.get("barcode")
-
-    if barcode == "EMP-2025":
-        return jsonify({"status": "success", "message": "تم تسجيل الدخول عبر الباركود ✅"})
-    else:
-        return jsonify({"status": "error", "message": "رمز غير صالح ❌"}), 401
-
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
