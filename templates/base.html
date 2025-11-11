@@ -60,6 +60,13 @@
         document.documentElement.dir = 'rtl';
         langBtn.textContent = 'EN';
       }
+
+      // تغيير النصوص بناءً على اللغة
+      const langElements = document.querySelectorAll('.lang');
+      langElements.forEach(element => {
+        const currentData = element.getAttribute('data-' + document.documentElement.lang);
+        element.textContent = currentData;
+      });
     });
   </script>
 </body>
