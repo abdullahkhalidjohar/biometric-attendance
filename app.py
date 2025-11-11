@@ -1,107 +1,66 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}شركة التيما للمقاولات{% endblock %}</title>
+from fastapi import FastAPI, Request, Form
+from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+# إنشاء تطبيق FastAPI
+app = FastAPI()
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+# ربط مجلد القوالب
+templates = Jinja2Templates(directory="templates")
 
-  <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      background-color: #f8f9fa;
-    }
+# يمكنك إضافة مجلد للملفات الثابتة مثل الصور أو CSS لاحقًا إن أردت
+# app.mount("/static", StaticFiles(directory="static"), name="static")
 
-    .navbar {
-      background-color: #003366;
-    }
+# ✅ الصفحة الرئيسية
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
-    .navbar-brand img {
-      height: 45px;
-      margin-left: 10px;
-    }
+# ✅ صفحة "من نحن"
+@app.get("/about", response_class=HTMLResponse)
+async def about(request: Request):
+    return templates.TemplateResponse("about.html", {"request": request})
 
-    footer {
-      background-color: #003366;
-      color: white;
-      padding: 15px 0;
-      margin-top: 40px;
-    }
+# ✅ صفحة "الخدمات"
+@app.get("/services", response_class=HTMLResponse)
+async def services(request: Request):
+    return templates.TemplateResponse("services.html", {"request": request})
 
-    .lang-btn {
-      color: #fff;
-      background: transparent;
-      border: 1px solid #fff;
-      border-radius: 5px;
-      padding: 4px 10px;
-      cursor: pointer;
-    }
+# ✅ صفحة تسجيل الدخول (GET)
+@app.get("/login", response_class=HTMLResponse)
+async def login_page(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
 
-    .lang-btn:hover {
-      background: #fff;
-      color: #003366;
-    }
-  </style>
-</head>
+# ✅ معالجة تسجيل الدخول (POST)
+@app.post("/login")
+async def login_user(request: Request, email: str = Form(...), password: str = Form(...)):
+    # مثال بسيط لتسجيل الدخول (ممكن تطويره لاحقًا بقاعدة بيانات)
+    if email == "admin@altema.com.sa" and password == "1234":
+        response = RedirectResponse(url="/admin", status_code=303)
+        return response
+    else:
+        return templates.TemplateResponse("login.html", {
+            "request": request,
+            "error": "بيانات الدخول غير صحيحة"
+        })
 
-<body>
+# ✅ لوحة المدير
+@app.get("/admin", response_class=HTMLResponse)
+async def admin_page(request: Request):
+    return templates.TemplateResponse("admin.html", {"request": request})
 
-  <!-- شريط التنقل -->
-  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
-    <div class="container">
-      <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
-        <img src="https://altema.com.sa/wp-content/uploads/2022/06/logo.png" alt="Altema Logo">
-        التيما للمقاولات
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="/">الرئيسية</a></li>
-          <li class="nav-item"><a class="nav-link" href="/about">من نحن</a></li>
-          <li class="nav-item"><a class="nav-link" href="/services">خدماتنا</a></li>
-          <li class="nav-item"><a class="nav-link" href="/login">تسجيل الدخول</a></li>
-        </ul>
-        <button id="lang-toggle" class="lang-btn ms-3">EN</button>
-      </div>
-    </div>
-  </nav>
+# ✅ صفحة الخطأ 404 (اختياري)
+@app.exception_handler(404)
+async def not_found(request: Request, exc):
+    return templates.TemplateResponse(
+        "index.html",
+        {"request": request, "error": "الصفحة غير موجودة"},
+        status_code=404
+    )
 
-  <!-- محتوى الصفحات -->
-  <main class="container mt-5">
-    {% block content %}{% endblock %}
-  </main>
-
-  <!-- الفوتر -->
-  <footer class="text-center">
-    &copy; 2025 شركة التيما للمقاولات - جميع الحقوق محفوظة
-  </footer>
-
-  <!-- JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- لغة ديناميكية -->
-  <script>
-    const langBtn = document.getElementById('lang-toggle');
-    langBtn.addEventListener('click', () => {
-      const currentLang = document.documentElement.lang;
-      if (currentLang === 'ar') {
-        document.documentElement.lang = 'en';
-        document.documentElement.dir = 'ltr';
-        langBtn.textContent = 'AR';
-      } else {
-        document.documentElement.lang = 'ar';
-        document.documentElement.dir = 'rtl';
-        langBtn.textContent = 'EN';
-      }
-    });
-  </script>
-
-</body>
-</html>
+# ✅ تشغيل التطبيق محليًا
+# للأجهزة المحلية فقط، لا تستخدم هذا في Render
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
