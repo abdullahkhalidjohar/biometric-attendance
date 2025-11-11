@@ -1,8 +1,106 @@
 {% extends "base.html" %}
+{% block title %}شركة التيما للمقاولات{% endblock %}
+
 {% block content %}
-<div class="text-center mt-5">
-  <h1 class="display-4 text-primary fw-bold">شركة التيما للمقاولات</h1>
-  <p class="lead mt-3">نظام إدارة المشاريع والحضور والانصراف الذكي</p>
-  <a href="/login" class="btn btn-primary btn-lg mt-4">تسجيل الدخول</a>
-</div>
+<style>
+    /* تأثير الزوم على النص */
+    .zoom-text {
+        transition: transform 0.6s ease-in-out;
+    }
+    .zoom-text:hover {
+        transform: scale(1.1);
+    }
+
+    /* تأثير التحويل بين النصوص */
+    .switch-text {
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: #555;
+        transition: opacity 0.8s ease-in-out;
+    }
+
+    .fade-out {
+        opacity: 0;
+    }
+
+    .fade-in {
+        opacity: 1;
+    }
+</style>
+
+<section class="text-center py-5 bg-white shadow-sm rounded-4">
+    <img src="https://altema.com.sa/wp-content/uploads/2021/04/altema-logo.png" alt="شعار التيما" class="mb-3 zoom-text" width="160">
+    <h1 class="fw-bold text-primary zoom-text">شركة التيما للمقاولات</h1>
+    <p id="switchingText" class="switch-text mt-3">
+        نحن نبني المستقبل بأعلى معايير الجودة والابتكار في مجال المقاولات.
+    </p>
+
+    <a href="/login" class="btn btn-primary px-4 m-2">تسجيل الدخول</a>
+    <a href="/admin" class="btn btn-outline-primary px-4 m-2">لوحة الإدارة</a>
+</section>
+
+<script>
+    // نصوص بالعربية والإنجليزية
+    const texts = [
+        "نحن نبني المستقبل بأعلى معايير الجودة والابتكار في مجال المقاولات.",
+        "We build the future with the highest standards of quality and innovation in construction.",
+        "شركة التيما شريكك الموثوق في تنفيذ المشاريع الكبرى.",
+        "Altema Company — Your trusted partner for large-scale projects.",
+        "نلتزم بالتميز والإبداع في كل مشروع.",
+        "Committed to excellence and creativity in every project."
+    ];
+
+    let index = 0;
+    const textElement = document.getElementById("switchingText");
+
+    function switchText() {
+        textElement.classList.remove("fade-in");
+        textElement.classList.add("fade-out");
+
+        setTimeout(() => {
+            index = (index + 1) % texts.length;
+            textElement.textContent = texts[index];
+            textElement.classList.remove("fade-out");
+            textElement.classList.add("fade-in");
+        }, 800);
+    }
+
+    setInterval(switchText, 4000); // تغيير كل 4 ثوانٍ
+</script>
+
+<section class="container mt-5">
+    <div class="row text-center">
+        <h2 class="fw-bold mb-4 zoom-text">خدماتنا</h2>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0 zoom-text">
+                <img src="https://images.unsplash.com/photo-1581093588401-22dca74b9a63" class="card-img-top" alt="البناء والتشييد">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">البناء والتشييد</h5>
+                    <p class="card-text text-muted">ننفذ مشاريع بناء سكنية وتجارية بأحدث تقنيات البناء وجودة عالية.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0 zoom-text">
+                <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be" class="card-img-top" alt="إدارة المشاريع">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">إدارة المشاريع</h5>
+                    <p class="card-text text-muted">ندير مشاريعنا باحترافية لضمان الإنجاز في الوقت المحدد وبأعلى جودة.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0 zoom-text">
+                <img src="https://images.unsplash.com/photo-1604014237800-1c2a2e7ad7c8" class="card-img-top" alt="الاستشارات الهندسية">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">الاستشارات الهندسية</h5>
+                    <p class="card-text text-muted">فريقنا يقدم الحلول الهندسية المتكاملة والدعم الفني المتواصل.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
