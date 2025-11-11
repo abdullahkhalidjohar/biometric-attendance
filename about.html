@@ -1,1 +1,161 @@
+{% extends "base.html" %}
+{% block title %}من نحن - شركة التيما{% endblock %}
+
+{% block content %}
+<style>
+    .zoom-text {
+        transition: transform 0.6s ease, color 0.5s ease;
+    }
+    .zoom-text:hover {
+        transform: scale(1.1);
+        color: #0d6efd;
+    }
+    .fade-in-section {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.9s ease-out;
+        visibility: hidden;
+    }
+    .fade-in-section.is-visible {
+        opacity: 1;
+        transform: none;
+        visibility: visible;
+    }
+    .switch-text {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #555;
+        transition: opacity 0.8s ease-in-out;
+    }
+    .fade-out { opacity: 0; }
+    .fade-in { opacity: 1; }
+
+    .team-card {
+        border: none;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .team-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+</style>
+
+<!-- ===== رأس الصفحة ===== -->
+<section class="text-center py-5 bg-white shadow-sm fade-in-section">
+    <img src="https://altema.com.sa/wp-content/uploads/2021/04/altema-logo.png" alt="شعار التيما" class="mb-3 zoom-text" width="160">
+    <h1 class="fw-bold text-primary zoom-text">من نحن</h1>
+    <p id="switchingText" class="switch-text mt-3">
+        نحن في شركة التيما نؤمن أن الجودة ليست خيارًا، بل التزام دائم.
+    </p>
+</section>
+
+<!-- ===== رؤيتنا ورسالتنا ===== -->
+<section class="container py-5 fade-in-section">
+    <div class="row align-items-center">
+        <div class="col-md-6 mb-4">
+            <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be" alt="مشروع بناء" class="img-fluid rounded-4 shadow-sm">
+        </div>
+        <div class="col-md-6">
+            <h2 class="fw-bold text-primary mb-3 zoom-text">رؤيتنا</h2>
+            <p class="text-muted fs-5">
+                أن نكون رواد المقاولات في المملكة من خلال تنفيذ مشاريع متكاملة تجمع بين الدقة، الجودة، والابتكار.
+            </p>
+            <h2 class="fw-bold text-primary mt-4 mb-3 zoom-text">رسالتنا</h2>
+            <p class="text-muted fs-5">
+                تقديم خدمات هندسية وإنشائية بمعايير عالمية، وبناء علاقات طويلة الأمد مع عملائنا وشركائنا.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== قيمنا ===== -->
+<section class="bg-light py-5 fade-in-section">
+    <div class="container text-center">
+        <h2 class="fw-bold text-primary mb-4 zoom-text">قيمنا</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card team-card p-3">
+                    <h5 class="fw-bold text-primary">الجودة</h5>
+                    <p class="text-muted">نحرص على تنفيذ كل مشروع وفق أعلى معايير الجودة والمواصفات الفنية.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card team-card p-3">
+                    <h5 class="fw-bold text-primary">الشفافية</h5>
+                    <p class="text-muted">نؤمن أن الثقة هي الأساس في كل علاقة عمل ناجحة.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card team-card p-3">
+                    <h5 class="fw-bold text-primary">الابتكار</h5>
+                    <p class="text-muted">نستخدم أحدث التقنيات لنحقق نتائج تفوق التوقعات.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== فريق العمل ===== -->
+<section class="container py-5 fade-in-section">
+    <h2 class="fw-bold text-center text-primary mb-4 zoom-text">فريقنا</h2>
+    <div class="row text-center">
+        <div class="col-md-4 mb-4">
+            <div class="card team-card p-3">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle mx-auto mb-3" width="120">
+                <h5 class="fw-bold">م. عبد الله السبيعي</h5>
+                <p class="text-muted">المدير التنفيذي</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card team-card p-3">
+                <img src="https://randomuser.me/api/portraits/men/44.jpg" class="rounded-circle mx-auto mb-3" width="120">
+                <h5 class="fw-bold">م. خالد العتيبي</h5>
+                <p class="text-muted">مدير المشاريع</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card team-card p-3">
+                <img src="https://randomuser.me/api/portraits/women/48.jpg" class="rounded-circle mx-auto mb-3" width="120">
+                <h5 class="fw-bold">م. نورة العبدالله</h5>
+                <p class="text-muted">مدير الجودة والتميز</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // نصوص عربية وإنجليزية تتغير تلقائيًا
+    const texts = [
+        "نحن في شركة التيما نؤمن أن الجودة ليست خيارًا، بل التزام دائم.",
+        "At Altema, we believe quality is not an option, but a lifelong commitment.",
+        "شركة التيما تسعى لتكون رمزًا للتميز في المقاولات.",
+        "Altema strives to be a symbol of excellence in construction.",
+        "نضع عملاءنا في قلب كل مشروع ننفذه.",
+        "We put our clients at the heart of every project we deliver."
+    ];
+    let index = 0;
+    const textElement = document.getElementById("switchingText");
+
+    function switchText() {
+        textElement.classList.remove("fade-in");
+        textElement.classList.add("fade-out");
+        setTimeout(() => {
+            index = (index + 1) % texts.length;
+            textElement.textContent = texts[index];
+            textElement.classList.remove("fade-out");
+            textElement.classList.add("fade-in");
+        }, 800);
+    }
+    setInterval(switchText, 4000);
+
+    // حركة دخول عند التمرير
+    const sections = document.querySelectorAll(".fade-in-section");
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add("is-visible");
+        });
+    }, { threshold: 0.2 });
+    sections.forEach(section => observer.observe(section));
+</script>
+{% endblock %}
 
